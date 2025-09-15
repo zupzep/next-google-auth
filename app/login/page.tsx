@@ -1,32 +1,25 @@
 // app/login/page.tsx
 "use client";
 
-import { GoogleLogin } from "@react-oauth/google";
-import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const handleSuccess = async (credentialResponse: any) => {
-    if (!credentialResponse?.credential) return;
+  const router = useRouter();
 
-    try {
-      const res = await axios.post(
-        "https://express-google-auth.vercel.app/auth/google",
-        { token: credentialResponse.credential },
-        { withCredentials: true }
-      );
-      localStorage.setItem("token", res.data.token);
-      console.log("Login berhasil:", res.data.user.name);
-    } catch (err) {
-      console.error("Login gagal:", err);
-    }
+  const handleLogin = () => {
+    // Redirect langsung ke backend OAuth endpoint
+    window.location.href = "https://express-google-auth.vercel.app/auth/google";
   };
 
   return (
-    <div>
-      <GoogleLogin
-        onSuccess={handleSuccess}
-      />
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-2xl mb-4">Login with Google</h1>
+      <button
+        onClick={handleLogin}
+        className="w-full max-w-xs bg-red-500 text-white py-2 rounded"
+      >
+        Login with Google
+      </button>
     </div>
   );
-
 }
