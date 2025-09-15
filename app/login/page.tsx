@@ -10,7 +10,7 @@ export default function LoginPage() {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/auth/google",
+        "https://express-google-auth.vercel.app/auth/google",
         { token: credentialResponse.credential },
         { withCredentials: true }
       );
@@ -28,4 +28,5 @@ export default function LoginPage() {
       />
     </div>
   );
+
 }
